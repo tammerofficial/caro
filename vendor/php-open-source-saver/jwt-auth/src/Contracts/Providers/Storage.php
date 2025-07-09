@@ -16,6 +16,7 @@ interface Storage
 {
     /**
      * @param string $key
+     * @param mixed  $value
      * @param int    $minutes
      *
      * @return void
@@ -24,6 +25,7 @@ interface Storage
 
     /**
      * @param string $key
+     * @param mixed  $value
      *
      * @return void
      */
@@ -31,6 +33,8 @@ interface Storage
 
     /**
      * @param string $key
+     *
+     * @return mixed
      */
     public function get($key);
 

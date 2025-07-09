@@ -28,7 +28,7 @@ class MockResponse implements ResponseInterface, StreamableInterface
     use CommonResponseTrait;
     use TransportResponseTrait;
 
-    private string|iterable|null $body;
+    private string|iterable $body;
     private array $requestOptions = [];
     private string $requestUrl;
     private string $requestMethod;
@@ -88,7 +88,7 @@ class MockResponse implements ResponseInterface, StreamableInterface
         return $this->requestMethod;
     }
 
-    public function getInfo(?string $type = null): mixed
+    public function getInfo(string $type = null): mixed
     {
         return null !== $type ? $this->info[$type] ?? null : $this->info;
     }
@@ -98,7 +98,7 @@ class MockResponse implements ResponseInterface, StreamableInterface
         $this->info['canceled'] = true;
         $this->info['error'] = 'Response has been canceled.';
         try {
-            $this->body = null;
+            unset($this->body);
         } catch (TransportException $e) {
             // ignore errors when canceling
         }
@@ -167,12 +167,12 @@ class MockResponse implements ResponseInterface, StreamableInterface
         $runningResponses[0][1][$response->id] = $response;
     }
 
-    protected static function perform(ClientState $multi, array $responses): void
+    protected static function perform(ClientState $multi, array &$responses): void
     {
         foreach ($responses as $response) {
             $id = $response->id;
 
-            if (null === $response->body) {
+            if (!isset($response->body)) {
                 // Canceled response
                 $response->body = [];
             } elseif ([] === $response->body) {

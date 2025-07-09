@@ -28,13 +28,6 @@ class Toastr
      */
     protected $messages = [];
 
-    /**
-     * The js type src type.
-     *
-     * @var string
-     */
-    protected $jsType = 'text/javascript';
-
     function __construct(Session $session, Config $config)
     {
         $this->session = $session;
@@ -47,7 +40,7 @@ class Toastr
 
         if (! $messages) $messages = [];
 
-        $script = '<script type="'.$this->jsType.'">';
+        $script = '<script type="text/javascript">';
 
         foreach ($messages as $message) {
            $config = (array) $this->config->get('toastr.options');
@@ -215,13 +208,5 @@ class Toastr
     public function clear()
     {
         $this->messages = [];
-    }
-    /**
-     * Set js type to module for using vite
-     *
-     * @return void
-     */
-    public function useVite(){
-        $this->jsType = 'module';
     }
 }

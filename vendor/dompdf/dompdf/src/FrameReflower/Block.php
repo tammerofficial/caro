@@ -776,9 +776,9 @@ class Block extends AbstractFrameReflower
     }
 
     /**
-     * @param BlockFrameDecorator|null $block
+     * @param BlockFrameDecorator $block
      */
-    function reflow(?BlockFrameDecorator $block = null)
+    function reflow(BlockFrameDecorator $block = null)
     {
 
         // Check if a page break is forced

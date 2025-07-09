@@ -16,6 +16,9 @@ use PHPOpenSourceSaver\JWTAuth\Http\Parser\LumenRouteParams;
 
 class LumenServiceProvider extends AbstractServiceProvider
 {
+    /**
+     * {@inheritdoc}
+     */
     public function boot()
     {
         $this->app->configure('jwt');

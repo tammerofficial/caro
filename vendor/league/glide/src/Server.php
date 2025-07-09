@@ -374,8 +374,6 @@ class Server
      * @param array  $params Image manipulation params.
      *
      * @return string Cache path.
-     *
-     * @throws FileNotFoundException
      */
     public function getCachePath($path, array $params = [])
     {
@@ -553,7 +551,7 @@ class Server
      *
      * @return void
      */
-    public function setResponseFactory(?ResponseFactoryInterface $responseFactory = null)
+    public function setResponseFactory(ResponseFactoryInterface $responseFactory = null)
     {
         $this->responseFactory = $responseFactory;
     }
@@ -577,8 +575,6 @@ class Server
      * @return mixed Image response.
      *
      * @throws InvalidArgumentException
-     * @throws FileNotFoundException
-     * @throws FilesystemException
      */
     public function getImageResponse($path, array $params)
     {
@@ -599,7 +595,6 @@ class Server
      *
      * @return string Base64 encoded image.
      *
-     * @throws FileNotFoundException
      * @throws FilesystemException
      */
     public function getImageAsBase64($path, array $params)
@@ -622,8 +617,6 @@ class Server
      * @param array  $params Image manipulation params.
      *
      * @throws InvalidArgumentException
-     * @throws FileNotFoundException
-     * @throws FilesystemException
      *
      * @return void
      */
@@ -696,7 +689,7 @@ class Server
                 $this->api->run($tmp, $this->getAllParams($params))
             );
         } catch (FilesystemV2Exception $exception) {
-            throw new FilesystemException('Could not write the image `'.$cachedPath.'`.', 0, $exception);
+            throw new FilesystemException('Could not write the image `'.$cachedPath.'`.');
         } finally {
             unlink($tmp);
         }

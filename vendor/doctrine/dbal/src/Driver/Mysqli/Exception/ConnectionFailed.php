@@ -11,7 +11,11 @@ use ReflectionProperty;
 
 use function assert;
 
-/** @internal */
+/**
+ * @internal
+ *
+ * @psalm-immutable
+ */
 final class ConnectionFailed extends AbstractException
 {
     public static function new(mysqli $connection): self

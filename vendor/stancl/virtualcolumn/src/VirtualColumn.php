@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 namespace Stancl\VirtualColumn;
 
-use Illuminate\Contracts\Encryption\DecryptException;
-use Illuminate\Support\Facades\Crypt;
-
 /**
  * This trait lets you add a "data" column functionality to any Eloquent model.
  * It serializes attributes which don't exist as columns on the model's table
@@ -16,119 +13,74 @@ use Illuminate\Support\Facades\Crypt;
  */
 trait VirtualColumn
 {
-    /**
-     * Encrypted castables have to be handled using a special approach that prevents the data from getting encrypted repeatedly.
-     *
-     * The default encrypted castables ('encrypted', 'encrypted:array', 'encrypted:collection', 'encrypted:json', 'encrypted:object')
-     * are already handled, so you can use this array to add your own encrypted castables.
-     */
-    public static array $customEncryptedCastables = [];
+    public static $afterListeners = [];
 
     /**
      * We need this property, because both created & saved event listeners
      * decode the data (to take precedence before other created & saved)
      * listeners, but we don't want the data to be decoded twice.
+     *
+     * @var string
      */
-    public bool $dataEncoded = false;
+    public $dataEncodingStatus = 'decoded';
 
-    protected function decodeVirtualColumn(): void
+    protected static function decodeVirtualColumn(self $model): void
     {
-        if (! $this->dataEncoded) {
+        if ($model->dataEncodingStatus === 'decoded') {
             return;
         }
 
-        $encryptedCastables = array_merge(
-            static::$customEncryptedCastables,
-            ['encrypted', 'encrypted:array', 'encrypted:collection', 'encrypted:json', 'encrypted:object'], // Default encrypted castables
-        );
+        foreach ($model->getAttribute(static::getDataColumn()) ?? [] as $key => $value) {
+            $model->setAttribute($key, $value);
+            $model->syncOriginalAttribute($key);
+        }
 
-        foreach ($this->getAttribute(static::getDataColumn()) ?? [] as $key => $value) {
-            $attributeHasEncryptedCastable = in_array(data_get($this->getCasts(), $key), $encryptedCastables);
+        $model->setAttribute(static::getDataColumn(), null);
 
-            if ($value && $attributeHasEncryptedCastable && $this->valueEncrypted($value)) {
-                $this->attributes[$key] = $value;
-            } else {
-                $this->setAttribute($key, $value);
+        $model->dataEncodingStatus = 'decoded';
+    }
+
+    protected static function encodeAttributes(self $model): void
+    {
+        if ($model->dataEncodingStatus === 'encoded') {
+            return;
+        }
+
+        foreach ($model->getAttributes() as $key => $value) {
+            if (! in_array($key, static::getCustomColumns())) {
+                $current = $model->getAttribute(static::getDataColumn()) ?? [];
+
+                $model->setAttribute(static::getDataColumn(), array_merge($current, [
+                    $key => $value,
+                ]));
+
+                unset($model->attributes[$key]);
+                unset($model->original[$key]);
             }
-
-            $this->syncOriginalAttribute($key);
         }
 
-        $this->setAttribute(static::getDataColumn(), null);
-
-        $this->dataEncoded = false;
+        $model->dataEncodingStatus = 'encoded';
     }
 
-    protected function encodeAttributes(): void
+    public static function bootVirtualColumn()
     {
-        if ($this->dataEncoded) {
-            return;
-        }
+        static::registerAfterListener('retrieved', function ($model) {
+            // We always decode after model retrieval.
+            $model->dataEncodingStatus = 'encoded';
 
-        $dataColumn = static::getDataColumn();
-        $customColumns = static::getCustomColumns();
-        $attributes = array_filter($this->getAttributes(), fn ($key) => ! in_array($key, $customColumns), ARRAY_FILTER_USE_KEY);
+            static::decodeVirtualColumn($model);
+        });
 
-        // Remove data column from the attributes
-        unset($attributes[$dataColumn]);
-
-        foreach ($attributes as $key => $value) {
-            // Remove attribute from the model
-            unset($this->attributes[$key]);
-            unset($this->original[$key]);
-        }
-
-        // Add attribute to the data column
-        $this->setAttribute($dataColumn, $attributes);
-
-        $this->dataEncoded = true;
-    }
-
-    public function valueEncrypted(string $value): bool
-    {
-        try {
-            Crypt::decryptString($value);
-
-            return true;
-        } catch (DecryptException) {
-            return false;
-        }
-    }
-
-    protected function decodeAttributes()
-    {
-        $this->dataEncoded = true;
-
-        $this->decodeVirtualColumn();
-    }
-
-    protected function getAfterListeners(): array
-    {
-        return [
-            'retrieved' => [
-                function () {
-                    // Always decode after model retrieval
-                    $this->dataEncoded = true;
-
-                    $this->decodeVirtualColumn();
-                },
-            ],
-            'saving' => [
-                [$this, 'encodeAttributes'],
-            ],
-            'creating' => [
-                [$this, 'encodeAttributes'],
-            ],
-            'updating' => [
-                [$this, 'encodeAttributes'],
-            ],
-        ];
+        // Encode if writing
+        static::registerAfterListener('saving', [static::class, 'encodeAttributes']);
+        static::registerAfterListener('creating', [static::class, 'encodeAttributes']);
+        static::registerAfterListener('updating', [static::class, 'encodeAttributes']);
     }
 
     protected function decodeIfEncoded()
     {
-        if ($this->dataEncoded) {
-            $this->decodeVirtualColumn();
+        if ($this->dataEncodingStatus === 'encoded') {
+            static::decodeVirtualColumn($this);
         }
     }
 
@@ -145,7 +97,7 @@ trait VirtualColumn
 
     public function runAfterListeners($event, $halt = true)
     {
-        $listeners = $this->getAfterListeners()[$event] ?? [];
+        $listeners = static::$afterListeners[$event] ?? [];
 
         if (! $event) {
             return;
@@ -161,6 +113,11 @@ trait VirtualColumn
 
             $handle($this);
         }
+    }
+
+    public static function registerAfterListener(string $event, callable $callback)
+    {
+        static::$afterListeners[$event][] = $callback;
     }
 
     public function getCasts()

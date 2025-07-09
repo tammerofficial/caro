@@ -11,7 +11,11 @@ use ReflectionProperty;
 
 use function sprintf;
 
-/** @internal */
+/**
+ * @internal
+ *
+ * @psalm-immutable
+ */
 final class InvalidCharset extends AbstractException
 {
     public static function fromCharset(mysqli $connection, string $charset): self

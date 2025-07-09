@@ -19,14 +19,18 @@ interface Claim
     /**
      * Set the claim value, and call a validate method.
      *
-     * @return $this
+     * @param mixed $value
      *
      * @throws InvalidClaimException
+     *
+     * @return $this
      */
     public function setValue($value);
 
     /**
      * Get the claim value.
+     *
+     * @return mixed
      */
     public function getValue();
 
@@ -48,6 +52,8 @@ interface Claim
 
     /**
      * Validate the Claim value.
+     *
+     * @param mixed $value
      *
      * @return bool
      */

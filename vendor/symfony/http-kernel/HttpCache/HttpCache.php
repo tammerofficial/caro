@@ -17,7 +17,6 @@
 
 namespace Symfony\Component\HttpKernel\HttpCache;
 
-use Symfony\Component\HttpFoundation\Exception\SuspiciousOperationException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
@@ -90,7 +89,7 @@ class HttpCache implements HttpKernelInterface, TerminableInterface
      *                            Unless your application needs to process events on cache hits, it is recommended
      *                            to set this to false to avoid having to bootstrap the Symfony framework on a cache hit.
      */
-    public function __construct(HttpKernelInterface $kernel, StoreInterface $store, ?SurrogateInterface $surrogate = null, array $options = [])
+    public function __construct(HttpKernelInterface $kernel, StoreInterface $store, SurrogateInterface $surrogate = null, array $options = [])
     {
         $this->store = $store;
         $this->kernel = $kernel;
@@ -219,13 +218,7 @@ class HttpCache implements HttpKernelInterface, TerminableInterface
             $this->record($request, 'reload');
             $response = $this->fetch($request, $catch);
         } else {
-            $response = null;
-            do {
-                try {
-                    $response = $this->lookup($request, $catch);
-                } catch (CacheWasLockedException) {
-                }
-            } while (null === $response);
+            $response = $this->lookup($request, $catch);
         }
 
         $this->restoreResponseBody($request, $response);
@@ -244,9 +237,7 @@ class HttpCache implements HttpKernelInterface, TerminableInterface
 
         $response->prepare($request);
 
-        if (HttpKernelInterface::MAIN_REQUEST === $type) {
-            $response->isNotModified($request);
-        }
+        $response->isNotModified($request);
 
         return $response;
     }
@@ -474,7 +465,7 @@ class HttpCache implements HttpKernelInterface, TerminableInterface
      *
      * @return Response
      */
-    protected function forward(Request $request, bool $catch = false, ?Response $entry = null)
+    protected function forward(Request $request, bool $catch = false, Response $entry = null)
     {
         $this->surrogate?->addSurrogateCapability($request);
 
@@ -582,7 +573,15 @@ class HttpCache implements HttpKernelInterface, TerminableInterface
 
         // wait for the lock to be released
         if ($this->waitForLock($request)) {
-            throw new CacheWasLockedException(); // unwind back to handle(), try again
+            // replace the current entry with the fresh one
+            $new = $this->lookup($request);
+            $entry->headers = $new->headers;
+            $entry->setContent($new->getContent());
+            $entry->setStatusCode($new->getStatusCode());
+            $entry->setProtocolVersion($new->getProtocolVersion());
+            foreach ($new->headers->getCookies() as $cookie) {
+                $entry->headers->setCookie($cookie);
+            }
         } else {
             // backend is slow as hell, send a 503 response (to avoid the dog pile effect)
             $entry->setStatusCode(503);
@@ -724,11 +723,7 @@ class HttpCache implements HttpKernelInterface, TerminableInterface
             $path .= '?'.$qs;
         }
 
-        try {
-            return $request->getMethod().' '.$path;
-        } catch (SuspiciousOperationException $e) {
-            return '_BAD_METHOD_ '.$path;
-        }
+        return $request->getMethod().' '.$path;
     }
 
     /**

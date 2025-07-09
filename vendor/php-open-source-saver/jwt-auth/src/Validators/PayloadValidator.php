@@ -58,7 +58,7 @@ class PayloadValidator extends Validator
      *
      * @return void
      *
-     * @throws TokenInvalidException
+     * @throws \PHPOpenSourceSaver\JWTAuth\Exceptions\TokenInvalidException
      */
     protected function validateStructure(Collection $claims)
     {
@@ -72,7 +72,7 @@ class PayloadValidator extends Validator
      *
      * @return Collection
      *
-     * @throws TokenInvalidException
+     * @throws \PHPOpenSourceSaver\JWTAuth\Exceptions\TokenInvalidException
      * @throws \PHPOpenSourceSaver\JWTAuth\Exceptions\TokenExpiredException
      */
     protected function validatePayload(Collection $claims)

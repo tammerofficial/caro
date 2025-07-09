@@ -2,7 +2,6 @@
 
 namespace Spatie\ImageOptimizer;
 
-use InvalidArgumentException;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Process\Process;
 
@@ -62,16 +61,16 @@ class OptimizerChain
         return $this;
     }
 
-    public function optimize(string $pathToImage, ?string $pathToOutput = null)
+    public function optimize(string $pathToImage, string $pathToOutput = null)
     {
         if ($pathToOutput) {
-            $check = copy($pathToImage, $pathToOutput);
-            if ($check == false) {
-                throw new InvalidArgumentException("Cannot copy file");
-            }
+            copy($pathToImage, $pathToOutput);
+
             $pathToImage = $pathToOutput;
         }
+
         $image = new Image($pathToImage);
+
         $this->logger->info("Start optimizing {$pathToImage}");
 
         foreach ($this->optimizers as $optimizer) {

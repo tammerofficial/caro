@@ -14,5 +14,8 @@ namespace PHPOpenSourceSaver\JWTAuth\Claims;
 
 class Audience extends Claim
 {
+    /**
+     * {@inheritdoc}
+     */
     protected $name = 'aud';
 }

@@ -207,13 +207,7 @@ trait HttpClientTrait
         if ($resolve = $options['resolve'] ?? false) {
             $options['resolve'] = [];
             foreach ($resolve as $k => $v) {
-                if ('' === $v = (string) $v) {
-                    $v = null;
-                } elseif ('[' === $v[0] && ']' === substr($v, -1) && str_contains($v, ':')) {
-                    $v = substr($v, 1, -1);
-                }
-
-                $options['resolve'][substr(self::parseUrl('http://'.$k)['authority'], 2)] = $v;
+                $options['resolve'][substr(self::parseUrl('http://'.$k)['authority'], 2)] = (string) $v;
             }
         }
 
@@ -236,13 +230,7 @@ trait HttpClientTrait
 
         if ($resolve = $defaultOptions['resolve'] ?? false) {
             foreach ($resolve as $k => $v) {
-                if ('' === $v = (string) $v) {
-                    $v = null;
-                } elseif ('[' === $v[0] && ']' === substr($v, -1) && str_contains($v, ':')) {
-                    $v = substr($v, 1, -1);
-                }
-
-                $options['resolve'] += [substr(self::parseUrl('http://'.$k)['authority'], 2) => $v];
+                $options['resolve'] += [substr(self::parseUrl('http://'.$k)['authority'], 2) => (string) $v];
             }
         }
 
@@ -356,11 +344,9 @@ trait HttpClientTrait
                 }
             });
 
-            if ('' === $body = http_build_query($body, '', '&')) {
-                return '';
-            }
+            $body = http_build_query($body, '', '&');
 
-            if (!$streams && !str_contains($normalizedHeaders['content-type'][0] ?? '', 'multipart/form-data')) {
+            if ('' === $body || !$streams && !str_contains($normalizedHeaders['content-type'][0] ?? '', 'multipart/form-data')) {
                 if (!str_contains($normalizedHeaders['content-type'][0] ?? '', 'application/x-www-form-urlencoded')) {
                     $normalizedHeaders['content-type'] = ['Content-Type: application/x-www-form-urlencoded'];
                 }
@@ -549,7 +535,7 @@ trait HttpClientTrait
     /**
      * @throws InvalidArgumentException When the value cannot be json-encoded
      */
-    private static function jsonEncode(mixed $value, ?int $flags = null, int $maxDepth = 512): string
+    private static function jsonEncode(mixed $value, int $flags = null, int $maxDepth = 512): string
     {
         $flags ??= \JSON_HEX_TAG | \JSON_HEX_APOS | \JSON_HEX_AMP | \JSON_HEX_QUOT | \JSON_PRESERVE_ZERO_FRACTION;
 
@@ -571,8 +557,6 @@ trait HttpClientTrait
      */
     private static function resolveUrl(array $url, ?array $base, array $queryDefaults = []): array
     {
-        $givenUrl = $url;
-
         if (null !== $base && '' === ($base['scheme'] ?? '').($base['authority'] ?? '')) {
             throw new InvalidArgumentException(sprintf('Invalid "base_uri" option: host or scheme is missing in "%s".', implode('', $base)));
         }
@@ -626,10 +610,6 @@ trait HttpClientTrait
             $url['query'] = null;
         }
 
-        if (null !== $url['scheme'] && null === $url['authority']) {
-            throw new InvalidArgumentException(\sprintf('Invalid URL: host is missing in "%s".', implode('', $givenUrl)));
-        }
-
         return $url;
     }
 
@@ -640,9 +620,7 @@ trait HttpClientTrait
      */
     private static function parseUrl(string $url, array $query = [], array $allowedSchemes = ['http' => 80, 'https' => 443]): array
     {
-        $tail = '';
-
-        if (false === $parts = parse_url(\strlen($url) !== strcspn($url, '?#') ? $url : $url.$tail = '#')) {
+        if (false === $parts = parse_url($url)) {
             throw new InvalidArgumentException(sprintf('Malformed URL "%s".', $url));
         }
 
@@ -650,27 +628,18 @@ trait HttpClientTrait
             $parts['query'] = self::mergeQueryString($parts['query'] ?? null, $query, true);
         }
 
-        $scheme = $parts['scheme'] ?? null;
-        $host = $parts['host'] ?? null;
-
-        if (!$scheme && $host && !str_starts_with($url, '//')) {
-            $parts = parse_url(':/'.$url.$tail);
-            $parts['path'] = substr($parts['path'], 2);
-            $scheme = $host = null;
-        }
-
         $port = $parts['port'] ?? 0;
 
-        if (null !== $scheme) {
+        if (null !== $scheme = $parts['scheme'] ?? null) {
             if (!isset($allowedSchemes[$scheme = strtolower($scheme)])) {
-                throw new InvalidArgumentException(sprintf('Unsupported scheme in "%s": "%s" expected.', $url, implode('" or "', array_keys($allowedSchemes))));
+                throw new InvalidArgumentException(sprintf('Unsupported scheme in "%s".', $url));
             }
 
             $port = $allowedSchemes[$scheme] === $port ? 0 : $port;
             $scheme .= ':';
         }
 
-        if (null !== $host) {
+        if (null !== $host = $parts['host'] ?? null) {
             if (!\defined('INTL_IDNA_VARIANT_UTS46') && preg_match('/[\x80-\xFF]/', $host)) {
                 throw new InvalidArgumentException(sprintf('Unsupported IDN "%s", try enabling the "intl" PHP extension or running "composer require symfony/polyfill-intl-idn".', $host));
             }
@@ -698,7 +667,7 @@ trait HttpClientTrait
             'authority' => null !== $host ? '//'.(isset($parts['user']) ? $parts['user'].(isset($parts['pass']) ? ':'.$parts['pass'] : '').'@' : '').$host : null,
             'path' => isset($parts['path'][0]) ? $parts['path'] : null,
             'query' => isset($parts['query']) ? '?'.$parts['query'] : null,
-            'fragment' => isset($parts['fragment']) && !$tail ? '#'.$parts['fragment'] : null,
+            'fragment' => isset($parts['fragment']) ? '#'.$parts['fragment'] : null,
         ];
     }
 

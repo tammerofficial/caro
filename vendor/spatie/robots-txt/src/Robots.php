@@ -2,70 +2,48 @@
 
 namespace Spatie\Robots;
 
-use InvalidArgumentException;
-
 class Robots
 {
-    protected ?RobotsTxt $robotsTxt;
+    protected RobotsTxt | null $robotsTxt;
 
     public function __construct(
-        protected ?string $userAgent = null,
-        RobotsTxt|string|null $source = null,
+        protected string | null $userAgent = null,
+        string | null $source = null,
     ) {
-        if ($source instanceof RobotsTxt) {
-            $this->robotsTxt = $source;
-        } elseif (is_string($source)) {
-            $this->robotsTxt = RobotsTxt::readFrom($source);
-        } else {
-            $this->robotsTxt = null;
-        }
+        $this->robotsTxt = $source
+            ? RobotsTxt::readFrom($source)
+            : null;
     }
 
-    public function withTxt(RobotsTxt|string $source): self
+    public function withTxt(string $source): self
     {
-        $this->robotsTxt = $source instanceof RobotsTxt
-                                ? $source
-                                : RobotsTxt::readFrom($source);
+        $this->robotsTxt = RobotsTxt::readFrom($source);
 
         return $this;
     }
 
-    public static function create(?string $userAgent = null, ?string $source = null): self
+    public static function create(string $userAgent = null, string $source = null): self
     {
         return new self($userAgent, $source);
     }
 
-    public function mayIndex(string $url, ?string $userAgent = null): bool
+    public function mayIndex(string $url, string $userAgent = null): bool
     {
         $userAgent = $userAgent ?? $this->userAgent;
 
         $robotsTxt = $this->robotsTxt ?? RobotsTxt::create($this->createRobotsUrl($url));
 
-        if (! $robotsTxt->allows($url, $userAgent)) {
-            return false;
-        }
-
-        $content = @file_get_contents($url);
-
-        if ($content === false) {
-            throw new InvalidArgumentException("Could not read url `{$url}`");
-        }
-
-        return RobotsMeta::create($content)->mayIndex()
-            && RobotsHeaders::create($http_response_header ?? [])->mayIndex();
+        return
+            $robotsTxt->allows($url, $userAgent)
+            && RobotsMeta::readFrom($url)->mayIndex()
+            && RobotsHeaders::readFrom($url)->mayIndex();
     }
 
     public function mayFollowOn(string $url): bool
     {
-        $content = @file_get_contents($url);
-
-        if ($content === false) {
-            throw new InvalidArgumentException("Could not read url `{$url}`");
-        }
-
         return
-            RobotsMeta::create($content)->mayFollow()
-            && RobotsHeaders::create($http_response_header ?? [])->mayFollow();
+            RobotsMeta::readFrom($url)->mayFollow()
+            && RobotsHeaders::readFrom($url)->mayFollow();
     }
 
     protected function createRobotsUrl(string $url): string

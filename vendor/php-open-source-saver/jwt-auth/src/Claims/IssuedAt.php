@@ -22,8 +22,14 @@ class IssuedAt extends Claim
         validateCreate as commonValidateCreate;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     protected $name = 'iat';
 
+    /**
+     * {@inheritdoc}
+     */
     public function validateCreate($value)
     {
         $this->commonValidateCreate($value);
@@ -35,6 +41,9 @@ class IssuedAt extends Claim
         return $value;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function validatePayload()
     {
         if ($this->isFuture($this->getValue())) {
@@ -42,6 +51,9 @@ class IssuedAt extends Claim
         }
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function validateRefresh($refreshTTL)
     {
         if ($this->isPast($this->getValue() + $refreshTTL * 60)) {

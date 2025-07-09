@@ -12,6 +12,7 @@
 
 namespace PHPOpenSourceSaver\JWTAuth\Http\Middleware;
 
+use Closure;
 use Illuminate\Http\Request;
 use PHPOpenSourceSaver\JWTAuth\Exceptions\JWTException;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
@@ -23,9 +24,11 @@ class RefreshToken extends BaseMiddleware
      *
      * @param Request $request
      *
+     * @return mixed
+     *
      * @throws UnauthorizedHttpException
      */
-    public function handle($request, \Closure $next)
+    public function handle($request, Closure $next)
     {
         $this->checkForToken($request);
 

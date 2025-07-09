@@ -15,9 +15,6 @@ class Vite extends BaseVite // todo move to a different directory in v4
      */
     protected function assetPath($path, $secure = null)
     {
-        // In Laravel 9, the property doesn't exist.
-        return (isset($this->assetPathResolver) && $this->assetPathResolver)
-            ? ($this->assetPathResolver)($path, $secure)
-            : global_asset($path);
+        return global_asset($path);
     }
 }
