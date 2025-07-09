@@ -1,0 +1,328 @@
+/* ************************
+   02.10: Inputs
+   ********************* */
+.input-group {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  width: 100%;
+
+  input {
+    position: relative;
+    flex: 1 1 auto;
+    width: 1%;
+    min-width: 0;
+    margin-bottom: 0;
+  }
+
+  &.style {
+    &--rounded {
+      background-color: $white;
+      border-radius: 50px;
+      overflow: hidden;
+
+      input {
+        border-radius: 50px 0 0 50px;
+      }
+
+      button {
+        border-radius: 50px !important;
+      }
+    }
+
+    &--two {
+      background-color: $white;
+      padding: 5px;
+
+      input {
+        padding: 0 10px 0 30px;
+        height: 35px;
+        border: none;
+        background-color: transparent;
+      }
+
+      button {
+        padding: 4px 14px;
+      }
+    }
+
+    &--three {
+      input {
+        height: 53px;
+        border: 1px solid $title-color-four;
+        border-right: 0;
+        border-radius: 3px 0 0 3px;
+      }
+
+      button {
+        border-radius: 0;
+        background-color: #141414;
+        text-transform: uppercase;
+        padding: 11px 25px;
+        border-radius: 0 3px 3px 0;
+
+        &:hover {
+          background-color: $c4;
+        }
+      }
+    }
+
+    &--four {
+      max-width: 260px;
+      margin-left: auto;
+
+      @include mobileLg {
+        margin-left: 0;
+      }
+
+      button {
+        border-radius: 0;
+        background-color: transparent;
+        border: none;
+
+        .material-icons {
+          font-size: 24px;
+          @extend %trans3;
+        }
+
+        &:hover {
+          color: $c1;
+        }
+      }
+    }
+  }
+}
+
+//Input Style
+.form-control {
+  height: 45px;
+  border: none;
+  background-color: #fff;
+  padding: 0 10px 0 30px;
+  display: block;
+  width: 100%;
+  @extend %trans3;
+  border-radius: 0;
+}
+
+textarea.form-control {
+  height: 200px;
+  padding-top: 15px;
+}
+
+//Checkbox Style
+.custom-checkbox {
+  display: flex;
+
+  .checkbox-label {
+    display: flex;
+    position: relative;
+    cursor: pointer;
+    user-select: none;
+    margin-bottom: 0;
+  }
+
+  input {
+    @extend %w-0;
+  }
+
+  .checkmark {
+    display: flex;
+    align-self: center;
+    align-items: center;
+    justify-content: center;
+    order: -1;
+    height: 25px;
+    min-width: 25px;
+    border: 1px solid #bfdbf4;
+
+    img {
+      opacity: 0;
+      visibility: hidden;
+      @extend %trans3;
+    }
+  }
+
+  .checkbox-text {
+    font-size: 14px;
+
+    +.checkmark {
+      margin-right: 10px;
+    }
+  }
+
+  input:checked {
+    ~.checkmark img {
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+
+  &.round {
+    .checkmark {
+      border-radius: 50%;
+    }
+  }
+
+  &.filled {
+    .checkmark {
+      border-radius: 50%;
+      border: none;
+      background-color: #b5f5d3;
+
+      img {
+        opacity: 1;
+        visibility: visible;
+        @extend %trans3;
+      }
+    }
+
+    input:checked {
+      ~.checkmark {
+        background-color: #51e666;
+      }
+    }
+  }
+
+  &--two {
+    cursor: pointer;
+    margin: 0;
+
+    .checkmark {
+      overflow: hidden;
+      position: relative;
+      background-color: #f5f5f5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+      font-size: 12px;
+      min-width: 50px;
+      min-height: 30px;
+      padding: 5px 15px;
+      @extend %trans2;
+
+      &:after {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        border: 1px solid $c1;
+        border-radius: inherit;
+        content: "";
+        opacity: 0;
+        visibility: hidden;
+        @extend %trans2;
+      }
+    }
+
+    &:hover {
+      .checkmark:after {
+        opacity: 1;
+        visibility: visible;
+      }
+    }
+
+    input {
+      @extend %w-0;
+
+      &:checked {
+        ~.checkmark {
+          opacity: 1;
+
+          &:after {
+            opacity: 1;
+            visibility: visible;
+          }
+        }
+      }
+    }
+  }
+}
+
+.checkbox-group {
+  margin-top: -15px;
+
+  >* {
+    margin-top: 15px;
+  }
+
+  &:not(.flex-column) {
+    >.custom-checkbox {
+      margin-right: 50px;
+    }
+
+    .custom-checkbox--two {
+      margin-right: 10px;
+    }
+  }
+}
+
+//Quantity input
+.quantity-input {
+  border: 1px solid $c1;
+  width: 85px;
+  background-color: rgba($c1, 0.2);
+
+  input {
+    height: 40px;
+    font-size: 16px;
+    background-color: #fff;
+    user-select: none;
+    min-width: 1px;
+  }
+
+  input[type="number"] {
+    -moz-appearance: textfield;
+
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+  }
+
+  button {
+    min-width: 25px;
+  }
+
+  &.sm {
+    width: 70px;
+
+    input {
+      height: 20px;
+      font-size: 14px;
+    }
+
+    button {
+      min-width: 20px;
+    }
+
+    .material-icons {
+      font-size: 14px;
+    }
+  }
+}
+
+.theme-input-style {
+  height: 40px;
+  border: 1px solid #e6e6e6;
+  padding: 0 15px;
+  display: block;
+  width: 100%;
+  background-color: #fbfbfb;
+  min-width: 1px;
+}
+
+select.theme-input-style {
+  background-color: #f5f5f5;
+  max-width: 100%;
+}
+
+textarea.theme-input-style {
+  height: 130px;
+  padding: 15px;
+}

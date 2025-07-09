@@ -1,0 +1,39 @@
+/* ************************
+   02.5: Section Title
+   ********************* */
+.section-title {
+    h2 {
+        margin-bottom: 0;
+        span {
+            color: $c1;
+        }
+    }
+    p {
+        font-size: 12px;
+        margin-top: 5px;
+    }
+    &--two {
+        h2 {
+            margin-bottom: 0;
+            position: relative;
+            color: $title-color-four;
+            padding-bottom: 16px;
+            &::after {
+                position: absolute;
+                content: '';
+                left: 0;
+                bottom: 0;
+                width: 45px;
+                height: 2px;
+                background-color: currentColor;
+            }
+        }
+    }
+}
+.line-color-c5 {
+    h2 {
+        &::after {
+            background-color: $c5;
+        }
+    }
+}

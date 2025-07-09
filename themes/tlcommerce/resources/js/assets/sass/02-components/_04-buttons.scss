@@ -1,0 +1,413 @@
+/* ************************
+   02.4: Buttons
+   ********************* */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  text-transform: capitalize;
+  padding: 13px 35px 10px;
+  font-size: 16px;
+  font-weight: $bold;
+  background-color: $c1;
+  color: $white;
+  border: none;
+  cursor: pointer;
+  @extend %trans3;
+  @extend %title-font;
+  border-radius: 0;
+
+  &:disabled {
+    background-color: $c1;
+    color: $white;
+  }
+
+  &:hover,
+  &:active,
+  &:focus {
+    background-color: $c3;
+    color: $white;
+  }
+
+  &.btn-sm {
+    padding: 5px 14px 2px;
+  }
+
+  &.btn_sm {
+    padding: 8px 16px 5px;
+  }
+
+  &.bg-black {
+    background-color: $title-color-four;
+    border-radius: 3px;
+    padding: 14px 25px 11px;
+  }
+
+  &.btn_border {
+    background-color: transparent;
+    border: 1px solid $c1;
+    color: $c1;
+
+    &:hover {
+      background-color: $c1;
+      color: #fff;
+    }
+  }
+
+  &.hover-light {
+    color: #3b3b3b;
+    border-color: #e6e6e6;
+
+    &:hover {
+      background-color: #e8e8e8;
+      color: #3b3b3b;
+    }
+  }
+
+  &.style-two {
+    border-radius: 50px;
+    font-family: $base-font;
+    font-size: 16px;
+    font-weight: $regular;
+    background-color: $c6;
+    text-transform: uppercase;
+    padding: 10px 40px 7px;
+
+    &:hover {
+      background-color: $title-color-four;
+    }
+  }
+}
+
+//Notification bell button
+.btn-notification-bell {
+  width: 35px;
+  min-width: 35px;
+  height: 35px;
+  border: 1px solid $white;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding: 0;
+  color: $c1;
+  background-color: $white;
+  @extend %trans3;
+  backface-visibility: hidden;
+
+  .count {
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    color: $white;
+    font-size: 11px;
+    font-weight: 500;
+    z-index: 99;
+    right: -5px;
+    top: 0;
+    border-radius: 50%;
+    background-color: $black;
+  }
+
+  &:hover {
+    background-color: transparent;
+    color: $c1;
+  }
+
+  &.bg-black {
+    background-color: $title-color-two;
+    color: #fff;
+    border-color: $title-color-two;
+
+    &:hover {
+      background-color: $c1 !important;
+      border-color: $c1;
+    }
+  }
+
+  &.border-style {
+    border: 1px solid transparent;
+    color: $text-color-soft;
+
+    &:hover {
+      color: $c1;
+      border-color: currentColor;
+    }
+  }
+
+  &.size-35 {
+    width: 35px;
+    height: 35px;
+    min-width: 35px;
+  }
+
+  &.style--two {
+    &:hover {
+      background-color: $c1;
+      color: $c1;
+      opacity: 0.8;
+    }
+  }
+
+  &.bg-transparent {
+    border: 1px solid currentColor;
+  }
+}
+
+//Button Circle
+.btn-circle {
+  width: 45px;
+  min-width: 45px;
+  height: 45px;
+  border: 2px solid $white;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding: 0;
+  color: $c1;
+  background-color: $white;
+  @extend %trans3;
+  backface-visibility: hidden;
+
+  .count {
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    color: $white;
+    font-size: 11px;
+    font-weight: 500;
+    z-index: 99;
+    right: -5px;
+    top: 0;
+    border-radius: 50%;
+    background-color: $black;
+  }
+
+  &:hover {
+    background-color: $c1 !important;
+    border-color: $white;
+    color: $white;
+  }
+
+  &.bg-black {
+    background-color: $title-color-two;
+    color: #fff;
+    border-color: $title-color-two;
+
+    &:hover {
+      background-color: $c1 !important;
+      border-color: $c1;
+    }
+  }
+
+  &.border-style {
+    border: 1px solid transparent;
+    color: $text-color-soft;
+
+    &:hover {
+      color: $c1;
+      border-color: currentColor;
+    }
+  }
+
+  &.size-35 {
+    width: 35px;
+    height: 35px;
+    min-width: 35px;
+  }
+
+  &.style--two {
+    &:hover {
+      background-color: $c1;
+      color: $c1;
+      opacity: 0.8;
+    }
+  }
+
+  &.bg-transparent {
+    border: 1px solid currentColor;
+  }
+}
+
+.btn-inline {
+  @extend %trans3;
+
+  &:hover {
+    color: $c1;
+  }
+}
+
+.navigation-btn {
+  width: 30px;
+  height: 30px;
+  background-color: $c1;
+  color: $white;
+  @extend %trans3;
+
+  &:hover {
+    background-color: $c3;
+  }
+
+  &.left {
+    border-radius: 50px 0 0 50px;
+  }
+
+  &.right {
+    border-radius: 0 50px 50px 0;
+  }
+}
+
+.btn_play {
+  width: 120px;
+  height: 120px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  border: 7px solid #fff;
+  color: $c1;
+  border-radius: 50%;
+  @extend %trans3;
+
+  &:hover {
+    border-width: 15px;
+  }
+}
+
+.btn-underline {
+  font-size: 14px;
+  text-decoration: underline;
+  font-weight: $medium;
+  $lh: 1.392;
+  line-height: $lh;
+  display: inline-block;
+
+  &:hover {
+    text-decoration: underline;
+    color: $c1;
+  }
+}
+
+//Icon Button
+.icon_btn {
+  line-height: 1;
+  border: 0;
+  padding: 0;
+  font-size: 12px;
+  font-weight: 500;
+  background-color: transparent;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-transform: capitalize;
+  @extend %trans3;
+
+  svg {
+    margin-right: 5px;
+  }
+
+  &:hover {
+    @extend %c1;
+  }
+}
+
+.btn-title {
+  @extend %title-font;
+  font-size: 18px;
+  color: $title-color-four;
+  font-weight: $bold;
+
+  &:hover {
+    color: $c4;
+  }
+}
+
+.btn-video-play {
+  height: 129px;
+  width: 129px;
+  border-radius: 50%;
+  border: 0;
+  background-color: $c4;
+  color: $white;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding: 0;
+  z-index: 1;
+
+  &:after {
+    border-radius: inherit;
+    content: "";
+    display: block;
+    position: absolute;
+    background-color: $c4;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: calc(100% + 24px);
+    height: calc(100% + 24px);
+    z-index: -1;
+    opacity: 0.25;
+  }
+
+  &:hover {
+    &:after {
+      animation: ripple 1s linear infinite;
+    }
+  }
+}
+
+.btn_loadmore {
+  border: 1px solid #e6e6e6;
+  font-weight: 500;
+  padding: 0 10px;
+  height: 30px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+
+  i,
+  .svg,
+  .material-icons {
+    margin-right: 5px;
+  }
+
+  .material-icons {
+    font-size: 14px;
+  }
+}
+
+.btn_underline {
+  font-size: 14px;
+  font-weight: 500;
+  position: relative;
+  line-height: 1;
+  padding: 0;
+  background-color: transparent;
+  border: 0;
+  cursor: pointer;
+
+  &:after {
+    height: 1px;
+    width: 100%;
+    opacity: 1;
+    transition: all 0.3s linear;
+    right: 0;
+    bottom: 0;
+    position: absolute;
+    content: "";
+    background-color: currentColor;
+  }
+
+  &:hover {
+    color: #0a0e33;
+
+    &:after {
+      width: 0;
+    }
+  }
+}

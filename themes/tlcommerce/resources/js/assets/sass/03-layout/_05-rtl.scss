@@ -1,0 +1,414 @@
+/* ************************
+   03.5: RTL
+   ********************* */
+
+html.rtl {
+    direction: rtl;
+
+    .header-info-wrap ul li:not(:last-child) {
+        margin-right: 0px;
+        margin-left: 30px;
+    }
+
+    .header-info-wrap ul ul li:not(:last-child) {
+        margin-left: 0px;
+    }
+
+    .header-btn-group li:not(:last-child),
+    .header-info-wrap .langcurrency>img {
+        margin-right: 0px;
+        margin-left: 10px;
+    }
+
+    .ms-1 {
+        margin-left: 0 !important;
+        margin-right: 0.25rem !important;
+    }
+
+    .header__two .nav-horizontal {
+        padding-left: 0px;
+        padding-right: 35px;
+        margin-left: 0px;
+        margin-right: 80px;
+
+        &:before {
+            left: auto;
+            right: 0;
+        }
+
+        >li:not(:first-child) {
+            margin-left: 0px;
+            margin-right: 25px;
+        }
+    }
+
+    .mr-15 {
+        margin-right: 0px;
+        margin-left: 15px;
+    }
+
+    .mr-10 {
+        margin-right: 0px;
+        margin-left: 10px;
+    }
+
+    .categories .sub-categories {
+        left: auto;
+        right: 20%;
+    }
+
+    .category-card img {
+        margin-right: 0px;
+        margin-left: 15px;
+    }
+
+    .countdown li:not(:last-child) {
+        margin-right: 0px;
+        margin-left: 12px;
+        padding-right: 0px;
+        padding-left: 12px;
+
+        &:after {
+            right: auto;
+            left: 0;
+        }
+    }
+
+    .single-product-item .product-action-buttons>button:not(:last-child) {
+        margin-right: 0px;
+        margin-left: 10px;
+    }
+
+    @media (min-width: 768px) {
+        .text-md-end {
+            text-align: left !important;
+        }
+    }
+
+    .cta-section {
+        direction: ltr;
+
+        .cta-content {
+            direction: rtl;
+        }
+
+        @media (max-width: 991px) {
+
+            .video-card,
+            .cta-image {
+                text-align: right;
+            }
+        }
+    }
+
+    .widget.widget_contact_info ul li {
+        padding-left: 0px;
+        padding-right: 25px;
+    }
+
+    .widget.widget_contact_info ul li svg {
+        left: auto;
+        right: 0;
+    }
+
+    .share-list li:not(:last-child) {
+        margin-right: 0px;
+        margin-left: 5px;
+    }
+
+    .footer .widget.share-list {
+        padding-right: 0;
+    }
+
+    .mr-20 {
+        margin-right: 0px;
+        margin-left: 20px;
+    }
+
+    .nav {
+        padding-right: 0;
+    }
+
+    @media (max-width: 991px) {
+        .header-info-wrap .my-account-dropdown {
+            right: auto;
+            left: 0;
+        }
+    }
+
+    .brands-collapse-box ul li button img {
+        margin-right: 0px;
+        margin-left: 5px;
+    }
+
+    .widget.widget-style-1>ul>li input {
+        margin-right: 0px;
+        margin-left: 7px;
+    }
+
+    .widget.widget_best_seller .seller-links>*:not(:last-child) {
+        margin-right: 0px;
+        margin-left: 10px;
+    }
+
+    .widget.widget_best_seller .seller-badge {
+        margin-right: 0px;
+        margin-left: 20px;
+    }
+
+    @media (min-width: 768px) {
+        .text-md-start {
+            text-align: right !important;
+        }
+    }
+
+    .ms-3 {
+        margin-left: 0rem !important;
+        margin-right: 1rem !important;
+    }
+
+    .me-1 {
+        margin-right: 0rem !important;
+        margin-left: 0.25rem !important;
+    }
+
+    .me-4 {
+        margin-right: 0rem !important;
+        margin-left: 1.5rem !important;
+    }
+
+    .checkbox-group:not(.flex-column) .custom-checkbox--two {
+        margin-right: 0px;
+        margin-left: 10px;
+    }
+
+    .ml-15 {
+        margin-left: 0px;
+        margin-right: 15px;
+    }
+
+    .ml-20 {
+        margin-left: 0px;
+        margin-right: 20px;
+    }
+
+    .icon_btn svg {
+        margin-right: 0px;
+        margin-left: 5px;
+    }
+
+    .breadcrumb-item+.breadcrumb-item {
+        padding-left: 0rem;
+        padding-right: 0.5rem;
+    }
+
+    .breadcrumb-item+.breadcrumb-item::before {
+        float: right;
+        padding-right: 0rem;
+        padding-left: 0.5rem;
+    }
+
+    .filter-tags .ant-tag-text {
+        margin-right: 0px;
+        margin-left: 4px;
+    }
+
+    .me-2 {
+        margin-right: 0rem !important;
+        margin-left: 0.5rem !important;
+    }
+
+    .filter-tags .filtered-by {
+        margin-right: 0px;
+        margin-left: 10px;
+    }
+
+    .filter-tags .ant-tag:not(:last-child) {
+        margin-right: 0px;
+        margin-left: 5px;
+    }
+
+    .cart-table .product-img {
+        margin-right: 0px;
+        margin-left: 10px;
+    }
+
+    .wizard-nav li .wizard-icon-circle {
+        margin-right: 0px;
+        margin-left: 10px;
+    }
+
+    .cart-table tr td:first-child,
+    .cart-table tr th:first-child {
+        text-align: right;
+    }
+
+    .cart-table tr td:last-child,
+    .cart-table tr th:last-child {
+        text-align: left;
+    }
+
+    .order-details .shop_table td:last-child {
+        padding-left: 0;
+        padding-right: 9px;
+        text-align: left;
+    }
+
+    .ms-2 {
+        margin-left: 0rem !important;
+        margin-right: 0.5rem !important;
+    }
+
+    .pagination li:not(:last-child) {
+        margin-right: 0px;
+        margin-left: 10px;
+    }
+
+    .pagination li:first-child .page-link span,
+    .pagination li:last-child .page-link span {
+        transform: rotate(180deg);
+    }
+
+    @media only screen and (max-width: 991px) {
+        .widget_wrap.active .close-btn {
+            left: auto;
+            right: 350px;
+        }
+
+        .widget_wrap-inner {
+            transform: translateX(100%);
+        }
+    }
+
+    @media only screen and (max-width: 479px) {
+        .widget_wrap.active .close-btn {
+            left: auto;
+            right: 280px;
+        }
+    }
+
+    .voucher-list .voucher-amount {
+        margin-right: 0px;
+        margin-left: 20px;
+        display: flex;
+        align-items: center;
+    }
+
+    .button-group .btn {
+        margin-right: 0px;
+        margin-left: 15px;
+    }
+
+    .product-details-action-area .button-group .btn {
+        margin-right: 0px;
+        margin-left: 0px !important;
+    }
+
+    .info-list li:not(:last-child) {
+        border-right: 0px solid #e7eaef;
+        border-left: 1px solid #e7eaef;
+    }
+
+    .single-review .review-avatar {
+        margin-right: 0px;
+        margin-left: 15px;
+    }
+
+    .me-3 {
+        margin-right: 0rem !important;
+        margin-left: 1rem !important;
+    }
+
+    .shipping-info .btn .material-icons {
+        transform: rotate(180deg);
+    }
+
+    .input-group.style--four {
+        margin-left: 0;
+        margin-right: auto;
+    }
+
+    @media (min-width: 768px) {
+        .me-md-5 {
+            margin-right: 0rem !important;
+            margin-left: 3rem !important;
+        }
+    }
+
+    .reseller-dashboard-menu li a img {
+        margin-right: 0px;
+        margin-left: 12px;
+    }
+
+    .table.style1 tr td,
+    .table.style1 tr th {
+        text-align: right;
+    }
+
+    .table.style1 tr td:last-child,
+    .table.style1 tr th:last-child {
+        text-align: center;
+    }
+
+    .pagination {
+        padding-right: 0;
+    }
+
+    .dt-filter-wrap>.dataTables_filter {
+        margin-right: 0px;
+        margin-left: 20px;
+    }
+
+    .extra-addons-wrap>*:not(:last-child) {
+        margin-right: 0px;
+        margin-left: 8px;
+    }
+
+    .offcanvas-menu ul .menu-icon {
+        margin-right: 0px;
+        margin-left: 10px;
+    }
+
+    @media (min-width: 992px) {
+        .text-lg-start {
+            text-align: right !important;
+        }
+    }
+
+    .product-description-tabs li a {
+        display: flex;
+    }
+
+    .product-description-tabs li a:after {
+        top: 1px;
+        right: 5px;
+    }
+
+    .save-adderss .radio-text {
+        margin-left: 0px;
+        margin-right: 10px;
+    }
+
+    .ml-10 {
+        margin-left: 0px;
+        margin-right: 10px;
+    }
+
+    .v-select {
+        direction: rtl;
+    }
+
+    .form-selector-list .custom-radio-btn input,
+    .form-selector-list .icon-wrap {
+        margin-right: 0px;
+        margin-left: 10px;
+    }
+
+    .checkmark {
+        margin-left: 0px;
+        margin-right: 10px;
+    }
+    .modal .modal-header .btn-circle{
+        margin-left: initial;
+    }
+}

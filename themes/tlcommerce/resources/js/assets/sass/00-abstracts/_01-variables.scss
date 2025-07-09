@@ -1,0 +1,54 @@
+:root {
+    --mainC: #ef2543;
+}
+
+// Colors
+$c1: var(--mainC);
+$c2: #f53b22;
+$c3: #22303f;
+$c4: #fd8601;
+$c5: #fac82e;
+$c6: #ff9727;
+$c7: #feb53b;
+$backToTopColor: #fff;
+$preloaderBgColor: #ffffffbd;
+$preloaderTextColor: #000;
+$headerBgColor: aliceblue;
+$headerColor: aliceblue;
+
+$title-color: #3b3b3b;
+$title-color-two: #1e202c;
+$title-color-three: #111111;
+$title-color-four: #141414;
+
+$text-color: #666666;
+$text-color-soft: #888888;
+$text-color-light: #aaaaaa;
+
+$white: #ffffff;
+$black: #000000;
+
+//Bg Color
+$bg-light: #f7f8fa;
+$modal-backdrop-bg: red;
+
+//Text Colors
+$color-success: #55eb6b;
+$color-danger: #ff0303;
+$color-warning: #f9c700;
+$color-info: #ff8b3d;
+
+// Fonts
+$base-font: 'Roboto', sans-serif;
+$title-font: 'Roboto', sans-serif;
+
+// Font Weight
+$thin: 100;
+$extra-light: 200;
+$light: 300;
+$regular: 400;
+$medium: 500;
+$semibold: 600;
+$bold: 700;
+$extra-bold: 800;
+$bolder: 900;

@@ -1,0 +1,7 @@
+.post-pagination a{
+color:#ffffff!important;
+background-color:#4e2ea9!important;
+}
+.post-pagination a.current{
+background-color:#56b88e!important;
+}

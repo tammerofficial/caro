@@ -1,0 +1,199 @@
+/* ************************
+   03.4: Footer
+   ********************* */
+.footer {
+  border-top: none;
+  .widget {
+    margin-bottom: 30px;
+    .widget-title {
+      font-size: 24px;
+    }
+  }
+  &__one {
+    a {
+      color: #bababa;
+      &:hover {
+        color: $c1;
+      }
+    }
+    .widget-title {
+      color: $white;
+    }
+    .footer-top {
+      padding: 40px 0 10px;
+    }
+    .share-list {
+      li {
+        &:not(:last-child) {
+          margin-right: 8px;
+        }
+        a {
+          color: $white;
+          &:hover {
+            color: $c1;
+          }
+        }
+      }
+    }
+    .widget_contact_info {
+      color: #bababa;
+      a {
+        color: $c1;
+      }
+    }
+    .border-top {
+      border-color: #2e2e2f !important;
+    }
+  }
+  &__two {
+    color: $white;
+    .footer-top {
+      padding: 69px 0 50px;
+      @media (max-width: 420px) {
+        padding: 25px 0 15px;
+      }
+    }
+    .widget-title,
+    a {
+      color: $white;
+    }
+    .border-top {
+      border-color: rgba($color: $white, $alpha: 0.2) !important;
+    }
+    a:hover {
+      opacity: 0.8;
+    }
+  }
+  &__three {
+    background-color: rgba(#a5f5f5, 0.2);
+    a {
+      &:hover {
+        color: $c4;
+      }
+    }
+    .widget_contact_info a,
+    .widget_location h5 {
+      color: $c4;
+    }
+    .share-list {
+      li {
+        &:not(:last-child) {
+          margin-right: 10px;
+        }
+      }
+    }
+    .footer-middle {
+      a {
+        color: $c4;
+        text-decoration: underline;
+      }
+      @include customMax(767) {
+        text-align: center;
+      }
+    }
+    .footer-bottom {
+      padding: 12px 0;
+      background-color: $title-color-four;
+      a {
+        color: $white;
+        &:hover {
+          color: $c4;
+        }
+      }
+    }
+  }
+  &__four {
+    background-color: #f8f8f8;
+    .newsletter-title {
+      color: $title-color-four;
+    }
+    .footer-top {
+      padding: 40px 0 10px;
+      border-bottom: 1px solid rgba(#000000, 0.15);
+    }
+    .footer-middle {
+      padding: 50px 0 30px;
+      border-bottom: 1px solid rgba(#000000, 0.15);
+    }
+    .share-list {
+      .btn-circle {
+        color: $title-color-four;
+        &:hover {
+          background-color: $c5 !important;
+          border-color: $c5;
+        }
+      }
+    }
+
+    a {
+      color: $text-color;
+      &:hover {
+        color: $c5;
+      }
+    }
+
+    .widget_contact_info a {
+      color: $title-color-four;
+    }
+  }
+  &__five {
+    &.bg-overlay {
+      &:after {
+        background-color: $c6;
+        opacity: 0.9;
+      }
+    }
+    .footer-top {
+      padding: 60px 0 30px;
+    }
+    .widget-title,
+    h5,
+    a {
+      color: $white;
+    }
+    a:hover {
+      opacity: 0.9;
+    }
+    .border-top {
+      border-top: 1px solid rgba($color: $white, $alpha: 0.2) !important;
+    }
+
+    .widget.widget_newsletter.style--two input {
+      border-color: $white;
+      background-color: transparent;
+      color: $white;
+      &::placeholder {
+        color: $white !important;
+        opacity: 0.5;
+      }
+    }
+    .widget.widget_newsletter.style--two button {
+      background-color: $white;
+      color: $title-color-four;
+    }
+  }
+  &__six {
+    background-color: #f0ebd8;
+    .footer-top {
+      padding: 60px 0 40px;
+    }
+    .border-top {
+      border-top: 1px solid rgba($color: #2e2e2f, $alpha: 0.2) !important;
+    }
+    .share-list li:not(:last-child) {
+      margin-right: 30px;
+    }
+    .widget.widget_newsletter.style--two {
+      input {
+        border: 1px solid #505050;
+        border-right: 0;
+      }
+      button {
+        background-color: $c7;
+      }
+    }
+    a:hover {
+      color: $c7;
+    }
+  }
+}

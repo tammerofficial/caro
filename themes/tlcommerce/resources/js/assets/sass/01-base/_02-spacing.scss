@@ -1,0 +1,33 @@
+/* ************************
+   01.2: Padding/Margin
+   ********************* */
+
+$cSpacer: 5px !default;
+$cSpacers: () !default;
+$cSpacers: map-merge(
+  (
+    0: 0,
+    5: (
+      $cSpacer * 1,
+    ),
+    10: (
+      $cSpacer * 2,
+    ),
+    15: (
+      $cSpacer * 3,
+    ),
+    20: (
+      $cSpacer * 4,
+    ),
+    25: (
+      $cSpacer * 5,
+    ),
+    30: (
+      $cSpacer * 6,
+    ),
+    50: (
+      $cSpacer * 10,
+    ),
+  ),
+  $cSpacers
+);

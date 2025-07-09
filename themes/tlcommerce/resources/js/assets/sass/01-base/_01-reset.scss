@@ -1,0 +1,138 @@
+/* ************************
+   01.1: Reset
+   ********************* */
+*,
+*::before,
+*::after {
+  outline: none !important;
+  box-sizing: border-box;
+}
+
+::selection {
+  text-shadow: none;
+  color: $white;
+  background-color: $title-color;
+}
+
+::placeholder {
+  color: $title-color !important;
+  opacity: 0.3 !important;
+  font-size: 14px;
+  font-weight: 500;
+  transition: 0.2s ease-in;
+}
+
+button {
+  cursor: pointer;
+}
+
+button:focus,
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none !important;
+}
+
+select {
+  width: 100%;
+  max-width: 100%;
+}
+
+textarea {
+  resize: none;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  color: $title-color;
+  @extend %trans3;
+  &:hover {
+    color: $c1;
+  }
+}
+
+a,
+a:hover,
+a:active,
+a:focus,
+input,
+input:hover,
+input:focus,
+input:active,
+select,
+textarea {
+  text-decoration: none;
+  outline: 0 !important;
+}
+
+sup {
+  top: -0.5rem;
+}
+
+hr {
+  margin-top: 15px;
+  margin-bottom: 15px;
+  border: 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: $bold;
+  color: $title-color;
+  font-family: $title-font;
+  line-height: 1.2;
+}
+
+p {
+  margin-bottom: 10px;
+  &:last-child {
+    margin: 0;
+  }
+}
+
+h1 {
+  font-size: 40px;
+}
+
+h2 {
+  font-size: 30px;
+}
+
+h3 {
+  font-size: 24px;
+}
+
+h4 {
+  font-size: 18px;
+}
+
+h5 {
+  font-size: 16px;
+}
+
+h6 {
+  font-size: 14px;
+}
+
+body {
+  font-family: $base-font;
+  color: $text-color;
+  overflow-x: hidden;
+
+  font-size: 14px;
+  $lh: 1.625;
+  line-height: $lh;
+}
+pre {
+  padding: 1rem;
+  border: 1px solid currentColor;
+}

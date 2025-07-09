@@ -1,0 +1,74 @@
+// Generate Colors
+@mixin colors($color, $class) {
+  %#{$class} {
+    color: $color;
+  }
+  %#{$class}-bg {
+    background-color: $color;
+  }
+  %#{$class}-bo {
+    border-color: $color !important;
+  }
+}
+
+// Media Queries
+// Extra Small Devices (less than 380px)
+@mixin mobileXs() {
+  @media only screen and (max-width: 379px) {
+    @content;
+  }
+}
+
+// Small Devices (less than 480px)
+@mixin mobileSm() {
+  @media only screen and (max-width: 479px) {
+    @content;
+  }
+}
+
+// Medium Devices (less than 576px)
+@mixin mobileMd() {
+  @media only screen and (max-width: 575px) {
+    @content;
+  }
+}
+
+// Medium Devices (less than 768px)
+@mixin mobileLg() {
+  @media only screen and (max-width: 767px) {
+    @content;
+  }
+}
+
+
+// Medium Devices (less than 991px)
+@mixin tab() {
+  @media only screen and (max-width: 991px) {
+    @content;
+  }
+}
+
+// Large Devices (less than 1400px)
+@mixin medium() {
+  @media only screen and (max-width: 1199px) {
+    @content;
+  }
+}
+
+// Extra Large Devices (More than 1400px)
+@mixin large() {
+  @media only screen and (min-width: 1400px) {
+    @content;
+  }
+}
+@mixin customMin($min-width) {
+  @media only screen and (min-width: #{$min-width}px) {
+    @content;
+  }
+}
+
+@mixin customMax($max-width) {
+  @media only screen and (max-width: #{$max-width}px) {
+    @content;
+  }
+}

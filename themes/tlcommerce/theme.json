@@ -1,0 +1,9 @@
+{
+    "name": "TL Commerce",
+    "location": "tlcommerce",
+    "namespace": "Theme\\TLCommerce\\",
+    "version": "1.0.2",
+    "author": "Themelooks",
+    "url": "http://www.themelooks.com/",
+    "description": "The TL Commerce theme of tl-commerce"
+}

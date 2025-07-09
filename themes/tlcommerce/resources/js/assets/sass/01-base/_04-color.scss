@@ -1,0 +1,66 @@
+/* ************************
+   01.3: Colors
+   ********************* */
+@include colors($c1, c1);
+@include colors($c2, c2);
+@include colors($c3, c3);
+@include colors($c4, c4);
+@include colors($c5, c5);
+@include colors($c6, c6);
+@include colors($c7, c7);
+
+//Helper Classes
+.c1 {
+    color: $c1 !important;
+}
+.c2 {
+    color: $c2 !important;
+}
+.c3 {
+    color: $c3 !important;
+}
+.c4 {
+    color: $c4 !important;
+}
+.c5 {
+    color: $c5 !important;
+}
+.c6 {
+    color: $c6 !important;
+}
+.c7 {
+    color: $c7 !important;
+}
+
+.c1-bg {
+    background-color: $c1 !important;
+}
+.c2-bg {
+    background-color: $c2 !important;
+}
+.c3-bg {
+    background-color: $c3 !important;
+}
+.c4-bg {
+    background-color: $c4 !important;
+}
+.c5-bg {
+    background-color: $c5 !important;
+}
+.c6-bg {
+    background-color: $c6 !important;
+}
+.c7-bg {
+    background-color: $c7 !important;
+}
+
+.text-title {
+    color: $title-color !important;
+}
+
+.text-info {
+    color: $color-info !important;
+}
+.text-danger {
+    color: $color-danger !important;
+}
